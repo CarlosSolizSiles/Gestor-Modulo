@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cmd /c script_move_file.bat",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "move": "cmd /c script_move_file.bat"
+    "preview": "vite preview"
   },
   "dependencies": {
     "jwt-decode": "^4.0.0",

@@ -10,4 +10,3 @@ REM Copiar solo el contenido de "dist" a la ruta en XAMPP
 xcopy "D:\User\Fordread\Downloads\proyecto react\dist\*" "C:\xampp\htdocs" /E /H /C /I
 
 @echo Todo el proceso ha sido completado con éxito.
-pause
