@@ -19,8 +19,8 @@ html {
 
 iframe {
     height: 100%;
-    width: calc(100vw - 350px);
-    margin-left: 350px;
+    width: calc(100vw - 320px);
+    margin-left: 320px;
 }
 
 header {
@@ -74,7 +74,7 @@ ul li a:hover {
 
 .container_steps.step {
     height: 100%;
-    width: calc(100vw - 350px);
+    width: calc(100vw - 320px);
     margin-left: 350px;
 }
 

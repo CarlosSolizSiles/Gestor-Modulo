@@ -1,66 +1,67 @@
 import React, { useState } from 'react';
-import './Sidebar.css'; // Estilos para los desplegables
+import './sidebar.css';
 
-function Sidebar({ changeUrl, lists_url }) {
-    // Estados para controlar si los desplegables están abiertos o cerrados
-    const [abiertoABM, setAbiertoABM] = useState(false);
-    const [abiertoPedidos, setAbiertoPedidos] = useState(false);
+function Sidebar({ changeUrl, lists_url }) { 
+    // Estado para controlar qué sección está activa
+    const [activeSection, setActiveSection] = useState(0);
+    const [openSections, setOpenSections] = useState({});
 
-    // Funciones para alternar el estado de los desplegables
-    const toggleABM = () => setAbiertoABM(!abiertoABM);
-    const togglePedidos = () => setAbiertoPedidos(!abiertoPedidos);
+    // Función para activar una sección
+    const activateSection = (sectionKey) => {
+        setActiveSection(sectionKey);
+        setOpenSections({}); // Cerrar todas las secciones al cambiar de pestaña
+    };
+
+    // Función para alternar el estado de cada menú desplegable
+    const toggleSection = (sectionKey) => {
+        setOpenSections(prevState => ({
+            ...prevState,
+            [sectionKey]: !prevState[sectionKey],
+        }));
+    };
 
     return (
-        <div className="base-navbar">
-            <div className="windows">
-                <div className="windows-btn">
-                    {
-                        lists_url.map(({ name }, i) => {
-                            return <button key={i}><h3>{name}</h3></button>
-                        })
-                    }
-                </div>
-
-                {lists_url.map(({ dir, links }) => {
-
-
-                    return links.map(({ name, links }) => (<div className="dropdown" key={dir}>
-                        <h4 onClick={togglePedidos} className="dropdown-header">
-                            {name} {abiertoPedidos ? '-' : '+'}
-                        </h4>
-                        {abiertoPedidos && (
-                            <div className="dropdown-content">
-                                {links.map(({ link, name }) => <button onClick={() => changeUrl(link)}>{name}</button>)}
-                            </div>
-                        )}
-                    </div>))
-                })}
-
-                {/* {changeMenu ?
-                    (<div className="dropdown">
-                        <h4 onClick={toggleABM} className="dropdown-header">
-                            ABM {abiertoABM ? '-' : '+'}
-                        </h4>
-                        {abiertoABM && (
-                            <div className="dropdown-content">
-                                <a href="/abm/index.js">Enlace ABM</a>
-                            </div>
-                        )}
-                    </div>) :
-
-
-                    <div className="dropdown">
-                        <h4 onClick={togglePedidos} className="dropdown-header">
-                            Pedidos {abiertoPedidos ? '-' : '+'}
-                        </h4>
-                        {abiertoPedidos && (
-                            <div className="dropdown-content">
-                                <button onClick={() => changeUrl('public/panol-abm/ver')}>Enlace Pedidos</button>
-                            </div>
-                        )}
-                    </div>
-                } */}
+        <div className="sidebar">
+            <div className="windows-btn">
+                {lists_url.map(({ sectionTitle, sectionKey }, i) => (
+                    <button 
+                        key={i} 
+                        onClick={() => activateSection(i)} 
+                        className={activeSection === sectionKey ? 'active-tab' : ''}
+                    >
+                        <h3>{sectionTitle}</h3>
+                    </button>
+                ))}
             </div>
+
+            {lists_url.map(({ sectionKey, subSections }, i) => {
+                if (activeSection !== i) {
+                    return <></>
+                }
+                return (
+                    <div className="dropdown" key={i}>
+                        {subSections.map(({ subSectionTitle, subLinks }, j) => (
+                            <React.Fragment key={j}>
+                                <h4
+                                    onClick={() => toggleSection(subSectionTitle)}
+                                    className="dropdown-header"
+                                >
+                                    {subSectionTitle} {openSections[subSectionTitle] ? '-' : '+'}
+                                </h4>
+                                {openSections[subSectionTitle] && (
+                                    <div className="dropdown-content">
+                                        {subLinks.map(({ url, linkName }, k) => (
+                                            <button key={k} onClick={() => changeUrl(url)}>
+                                                {linkName}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                );
+            })}
         </div>
     );
 }

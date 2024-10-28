@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe</title>
+    <script>
+        // Código para solicitar el localStorage desde el iframe
+        
+
+        // Ejemplo de uso al cargar el iframe
+        window.onload = function () {
+            requestLocalStorage("token").then((valor) => {
+                console.log("Valor de localStorage desde la página principal:", valor);
+                alert("Valor de localStorage desde la página principal:", valor);
+            });
+        };
+    </script>
+</head>
+<body>
+    <h1>Iframe</h1>
+</body>
+</html>

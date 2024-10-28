@@ -1,1 +1,43 @@
-[]
+[
+    {
+        "sectionTitle": "Pañol",
+        "subSections": [
+            {
+                "sectionKey": "panol-abm",
+                "subSectionTitle": "ABM",
+                "subLinks": [
+                    {
+                        "linkName": "Gestionar herramientas y consumibles",
+                        "url": "public/panol-abm/ver"
+                    },
+                    {
+                        "linkName": "Gestionar categoría, subcategoría y tipo",
+                        "url": "public/panol-abm/gestion_categorias"
+                    },
+                    {
+                        "linkName": "Agregar herramientas",
+                        "url": "public/panol-abm/subir_herramientas"
+                    },
+                    {
+                        "linkName": "Agregar consumibles",
+                        "url": "public/panol-abm/subir_consumibles"
+                    }
+                ]
+            },
+            {
+                "sectionKey": "pedidos",
+                "subSectionTitle": "Pedidos",
+                "subLinks": [
+                    {
+                        "linkName": "Ejemplo",
+                        "url": "public/panol-abm/a.html"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "sectionTitle": "Académicas",
+        "subSections": []
+    }
+]

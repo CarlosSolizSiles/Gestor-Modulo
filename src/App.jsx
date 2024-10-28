@@ -13,7 +13,7 @@ const lists_url = menuJSON ?? [];
 
 function App() {
   const [step, setStep] = useState(localStorage.getItem("step"));
-  const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT());
+  const [userAutentic, setUserAutentic] = useState(null);
   const [appUrl, setUrl] = useState("/public/panol-abm/");
   const [isEnableForm, setIsEnableForm] = useState(false);
   const [menu, setMenu] = useState(lists_url)
@@ -79,7 +79,7 @@ function App() {
       <div className='main-container'>
         <Sidebar changeUrl={changeUrl} lists_url={menu} />
 
-        {step === -1 ? (step === -1 && !isEnableForm) ? (<iframe src={appUrl} frameBorder="0" key={appUrl}></iframe>) : <div className='container_steps step'><Login onSubmit={(value) => {
+        {step === -1 ? (step === -1 && !isEnableForm) ? (<iframe id="miIframe" src={appUrl} frameBorder="0" key={appUrl}></iframe>) : <div className='container_steps step'><Login onSubmit={(value) => {
           setUserAutentic(value)
           setIsEnableForm(false)
 

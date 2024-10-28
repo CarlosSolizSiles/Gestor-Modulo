@@ -17,7 +17,8 @@ function VerificarPaso() {
                 reject()
             }
         } catch (err) {
-            console.error('Error:', err);
+            resolve(-1)
+            // console.error('Error:', err);
             reject()
         }
     })
