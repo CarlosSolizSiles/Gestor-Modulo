@@ -19,8 +19,8 @@ html {
 
 iframe {
     height: 100%;
-    width: calc(100vw - 320px);
-    margin-left: 320px;
+    width: calc(100vw - 350px);
+    margin-left: 350px;
 }
 
 header {
@@ -74,7 +74,7 @@ ul li a:hover {
 
 .container_steps.step {
     height: 100%;
-    width: calc(100vw - 320px);
+    width: calc(100vw - 350px);
     margin-left: 350px;
 }
 
@@ -107,6 +107,7 @@ ul li a:hover {
 }
 
 .container_steps.step input[type="text"],
+.container_steps.step input[type="email"],
 .container_steps.step input[type="password"] {
     padding: 0.8em;
     font-size: 1em;
@@ -135,4 +136,31 @@ ul li a:hover {
 .container_steps.step p {
     text-align: center;
     font-size: 0.9em;
+}
+
+.container_backward {
+    display: flex;
+    justify-content: center;
+}
+
+.backward {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0 56px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 7px;
+    background-color: #0070f3;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+    :hover {
+        background: rgba(0, 118, 255, 0.9);
+        box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+    }
 }

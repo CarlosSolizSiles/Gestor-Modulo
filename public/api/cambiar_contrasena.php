@@ -1,6 +1,6 @@
 <?php
 // Configuración de la base de datos
-include "../lib/conn.php"; // Asegúrate de que esta conexión usa `mysqli`
+include "../lib/conn.php"; // Asegúrate de que esta conexión usa mysqli
 
 // Encabezados CORS
 header("Access-Control-Allow-Origin: http://localhost:5173");
@@ -15,17 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (isset($data['nueva_usuario']) && isset($data['nueva_password']) && isset($data['confirmar_password'])) {
-    $nuevaUsuario = $data['nueva_usuario'];
+if (isset($data['nueva_email']) && isset($data['nueva_password']) && isset($data['confirmar_password']) && isset($data['user_id'])) {
+    $nuevaEmail = $data['nueva_email'];
     $nuevaPassword = $data['nueva_password'];
     $confirmarPassword = $data['confirmar_password'];
+    $id_user = $data['user_id'];
 
     if ($nuevaPassword === $confirmarPassword) {
         $nuevaPasswordHashed = password_hash($nuevaPassword, PASSWORD_BCRYPT);
 
         // Preparar la declaración SQL
-        $stmt = $conn->prepare("UPDATE usuarios SET username = ?, pass = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $nuevaUsuario, $nuevaPasswordHashed, $_SESSION['usuario_id']);
+        $stmt = $conn->prepare("UPDATE usuarios SET email = ?, password = ? WHERE id = ?");
+        $stmt->bind_param("sss", $nuevaEmail, $nuevaPasswordHashed, $id_user);
 
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "Usuario actualizado correctamente"]);

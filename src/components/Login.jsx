@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Login = ({ onSubmit }) => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -15,7 +15,7 @@ const Login = ({ onSubmit }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ email, password }),
             });
 
             const data = await response.json();
@@ -39,14 +39,14 @@ const Login = ({ onSubmit }) => {
 
     return (
         <div>
-            <h2>Login</h2>
+            <h2>Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
                 <label>
-                    Usuario:
+                    Email:
                     <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </label>

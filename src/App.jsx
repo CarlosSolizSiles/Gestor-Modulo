@@ -13,7 +13,7 @@ const lists_url = menuJSON ?? [];
 
 function App() {
   const [step, setStep] = useState(localStorage.getItem("step"));
-  const [userAutentic, setUserAutentic] = useState(null);
+  const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT());
   const [appUrl, setUrl] = useState("/public/panol-abm/");
   const [isEnableForm, setIsEnableForm] = useState(false);
   const [menu, setMenu] = useState(lists_url)

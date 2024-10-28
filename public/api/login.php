@@ -11,7 +11,7 @@ header("Content-Type: application/json");
 $secretKey = "your_secret_key";
 
 // Conexión a la base de datos
-$dsn = 'mysql:host=localhost;dbname=pruebaspiris;charset=utf8';
+$dsn = 'mysql:host=localhost;dbname=panol;charset=utf8';
 $username = 'root';
 $password = '';
 
@@ -26,18 +26,18 @@ try {
 // Decodifica la solicitud JSON
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (isset($data['username']) && isset($data['password'])) {
-    $username = $data['username'];
+if (isset($data['email']) && isset($data['password'])) {
+    $email = $data['email'];
     $password = $data['password'];
 
     // Consulta a la base de datos para validar credenciales
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = :username LIMIT 1");
-    $stmt->bindParam(':username', $username);
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email LIMIT 1");
+    $stmt->bindParam(':email', $email);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Verifica la contraseña
-    if ($user && password_verify($password, $user['pass'])) {
+    if ($user && password_verify($password, $user['password'])) {
         // Genera el token JWT
         $payload = [
             "iss" => "http://tudominio.com",  // Emisor
@@ -45,7 +45,8 @@ if (isset($data['username']) && isset($data['password'])) {
             "exp" => time() + 3600,           // Expiración del token (1 hora)
             "data" => [
                 "id" => $user['id'],
-                "username" => $user['username']
+                "name" => $user['nombre'],
+                "email" => $user['email']
             ]
         ];
         $jwt = JWT::encode($payload, $secretKey, 'HS256');

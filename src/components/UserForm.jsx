@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { obtenerDatosJWT } from "../lib/obtenerDatosJWT";
 
 const UserForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
-        nueva_usuario: '',
+        nueva_email: '',
         nueva_password: '',
-        confirmar_password: ''
+        confirmar_password: '',
+        user_id: obtenerDatosJWT()?.data?.id
     });
 
     const handleChange = (e) => {
@@ -17,18 +19,20 @@ const UserForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(obtenerDatosJWT()?.data?.id);
+        
         onSubmit(formData);
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="nueva_usuario">Nuevo Nombre de Usuario:</label>
+            <label htmlFor="nueva_email">Nuevo Email de Usuario:</label>
             <input
-                type="text"
-                name="nueva_usuario"
-                id="nueva_usuario"
+                type="email"
+                name="nueva_email"
+                id="nueva_email"
                 required
-                value={formData.nueva_usuario}
+                value={formData.nueva_email}
                 onChange={handleChange}
             />
             <br />

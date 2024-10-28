@@ -106,13 +106,15 @@ const Step = ({ value, changeStep, onChangeMenu }) => {
             return (
                 <>
                     <h2>Proceso de Intalación Terminada</h2>
-                    <button className='' onClick={() => {
-                        changeStep(-1);
-                        localStorage.removeItem("step")
-                    }
-                    }>
-                        Volver
-                    </button>
+                    <div className='container_backward'>
+                        <button className='backward' onClick={() => {
+                            changeStep(-1);
+                            localStorage.removeItem("step")
+                        }
+                        }>
+                            Volver
+                        </button>
+                    </div>
                 </>
             );
         default:
