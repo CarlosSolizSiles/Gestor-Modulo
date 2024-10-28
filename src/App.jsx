@@ -6,124 +6,56 @@ import './components/sidebar.css';
 import Login from './components/Login.jsx';
 import { obtenerDatosJWT } from './lib/obtenerDatosJWT.js';
 import VerificarPaso from './lib/verificarPaso.js';
-import UserForm from './components/UserForm';
-import AnotherForm from './components/AnotherForm'; // Ejemplo de otro formulario
-import ResponseMessage from './components/ResponseMessage';
-import MenuForm from './components/MenuForm.jsx';
+import Step from './components/Step.jsx';
+import menuJSON from "../public/menu.json"
 
-const Step = ({ value, changeStep }) => {
-  const [responseMessage, setResponseMessage] = useState('');
-
-  const handleFormSubmitResetPassword = async (formData) => {
-    const response = await fetch('http://localhost/demo_installer_page/api/cambiar_contrasena.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-
-    const result = await response.json();
-    if (result.status === 'success') {
-      setResponseMessage('Operación exitosa');
-      changeStep(value + 1)
-    } else {
-      setResponseMessage(result.message || 'Error en la operación');
-    }
-  };
-  const handleFormSubmit = async (formData) => {
-    const response = await fetch('http://localhost/demo_installer_page/api/importar_base_datos.php', {
-      method: 'POST',
-      body: formData // `Content-Type` se ajustará automáticamente al usar FormData
-    });
-
-    const result = await response.json();
-    if (result.status === 'success') {
-      setResponseMessage('Operación exitosa');
-      changeStep(value + 1);
-    } else {
-      setResponseMessage(result.message || 'Error en la operación');
-    }
-  };
-
-  const handleFormSubmitMenu = async (formData) => {
-    const response = await fetch('http://localhost/demo_installer_page/api/importar_menu.php', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json',
-        // 'Content-Type': 'application/json'  // Este encabezado no debe estar aquí
-      }
-    });
-
-    const result = await response.json();
-    if (result.status === 'success') {
-      setResponseMessage('Operación exitosa');
-      changeStep(value + 1);
-    } else {
-      setResponseMessage(result.message || 'Error en la operación');
-    }
-  };
-
-
-  switch (value) {
-    case 0:
-      return (
-        <>
-          <h2>Cambiar Nombre de Usuario y Contraseña</h2>
-          <UserForm onSubmit={handleFormSubmitResetPassword} />
-          <ResponseMessage message={responseMessage} />
-        </>
-      );
-
-    case 1:
-      return (
-        <>
-          <h2>Importar Base de Datos</h2>
-          <AnotherForm onSubmit={handleFormSubmit} />
-          <ResponseMessage message={responseMessage} />
-        </>
-      );
-
-    case 2:
-      return (
-        <>
-          <h2>Importar Menú</h2>
-          <MenuForm onSubmit={handleFormSubmitMenu} />
-          <ResponseMessage message={responseMessage} />
-        </>
-      );
-
-    default:
-      return null;
-  }
-
-};
-
+const lists_url = menuJSON ?? [];
 
 function App() {
-  const [step, setStep] = useState(localStorage.getItem("step"))
-  const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT())
-  const [appUrl, setUrl] = useState("/public/panol-abm/")
+  const [step, setStep] = useState(localStorage.getItem("step"));
+  const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT());
+  const [appUrl, setUrl] = useState("/public/panol-abm/");
+  const [isEnableForm, setIsEnableForm] = useState(false);
+  const [menu, setMenu] = useState(lists_url)
 
   useEffect(() => {
+    fetch("http://localhost/public/menu.json").then(x => x.json())
+      .then(x => {
+        setMenu(x)
+      })
+      .catch(() => {
+        setMenu([])
+      })
+
     VerificarPaso().then(x => {
       setStep(x);
-    })
-
-  }, [])
+    });
+  }, []);
 
   const changeUrl = (url) => {
-    setUrl(url)
-  }
+    setUrl(url);
+  };
 
   const hanlderInitDownload = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     localStorage.step = 0;
-  }
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsEnableForm(true);
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // Aquí deberías agregar la lógica para cerrar sesión
+    // Ejemplo: setUserAutentic({ data: null });
+    localStorage.removeItem('token'); // Elimina el token o la información del usuario del almacenamiento local
+    setUserAutentic(null);
+  };
 
   if (step === null) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -132,22 +64,37 @@ function App() {
         <nav>
           <a href="/"><img src="https://cdn-icons-png.flaticon.com/512/7001/7001366.png" alt="" /></a>
           <ul>
-            {step === 0 && !localStorage.getItem("step") ? <li><a href="http://" onClick={hanlderInitDownload}>Iniciar Instalación</a></li> : (!userAutentic.data ? <li><a href="http://">Iniciar Sesion</a></li> : <li><a href="http://">Cerar Sesion</a></li>)}
+            {step === 0 && !localStorage.getItem("step") ? (
+              <li><a href="/" onClick={hanlderInitDownload}>Iniciar Instalación</a></li>
+            ) : (
+              !userAutentic?.data ? (
+                <li><a href="/" onClick={handleLogin}>Iniciar Sesión</a></li>
+              ) : (
+                <li><a href="/" onClick={handleLogout}>Cerrar Sesión</a></li>
+              )
+            )}
           </ul>
         </nav>
       </header>
       <div className='main-container'>
-        <Sidebar changeUrl={changeUrl} />
-        <div className='container_steps'>
-          {!userAutentic.data ? <Login /> : <Step value={step} changeStep={(value => {
+        <Sidebar changeUrl={changeUrl} lists_url={menu} />
+
+        {step === -1 ? (step === -1 && !isEnableForm) ? (<iframe src={appUrl} frameBorder="0" key={appUrl}></iframe>) : <div className='container_steps step'><Login onSubmit={(value) => {
+          setUserAutentic(value)
+          setIsEnableForm(false)
+
+        }} /></div> : <div className={`container_steps ${step !== -1 ? " step" : ""}`}>
+          {!userAutentic?.data ? <Login onSubmit={(value) => {
+            setUserAutentic(value)
+            location.reload();
+          }} /> : <Step value={step} changeStep={(value) => {
             localStorage.step = value;
-            setStep(value)
-          })}></Step>}
-
-        </div>
-        {/* <iframe src={appUrl} frameborder="0" key={appUrl}></iframe> */}
+            setStep(value);
+          }}
+            onChangeMenu={(value) => { setMenu(value) }}
+          />}
+        </div>}
       </div>
-
     </Router>
   );
 }

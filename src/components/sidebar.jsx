@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import './Sidebar.css'; // Estilos para los desplegables
-import menuJSON from "../../public/menu.json"
 
-const lists_url = menuJSON ?? [];
-
-function Sidebar({ changeUrl }) {
+function Sidebar({ changeUrl, lists_url }) {
     // Estados para controlar si los desplegables están abiertos o cerrados
-    const [changeMenu, setChangeMenu] = useState(false)
     const [abiertoABM, setAbiertoABM] = useState(false);
     const [abiertoPedidos, setAbiertoPedidos] = useState(false);
 

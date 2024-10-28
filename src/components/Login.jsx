@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = ({ onSubmit }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -23,6 +23,7 @@ const Login = () => {
             if (data.success) {
                 localStorage.setItem('token', data.token);
                 setIsAuthenticated(true);
+                onSubmit(data.token)
             } else {
                 setError(data.message || 'Credenciales incorrectas');
             }
