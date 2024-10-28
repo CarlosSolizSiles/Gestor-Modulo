@@ -1,6 +1,6 @@
 async function eliminarPaso(pasoAEliminar) {
     try {
-        const response = await fetch('http://localhost/demo_installer_page/api/eliminarPaso.php', {
+        const response = await fetch(process.env.ELIMINAR_PASO, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

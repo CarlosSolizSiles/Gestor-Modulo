@@ -1,7 +1,7 @@
 function VerificarPaso() {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await fetch('http://localhost/demo_installer_page/api/verificarPaso.php', {
+            const response = await fetch(process.env.VERIFICAR_PASO, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

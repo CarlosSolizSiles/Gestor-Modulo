@@ -19,7 +19,7 @@ function App() {
   const [menu, setMenu] = useState(lists_url)
 
   useEffect(() => {
-    fetch("http://localhost/public/menu.json").then(x => x.json())
+    fetch(process.env.MENU).then(x => x.json())
       .then(x => {
         setMenu(x)
       })

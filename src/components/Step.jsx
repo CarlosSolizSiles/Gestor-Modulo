@@ -11,7 +11,7 @@ const Step = ({ value, changeStep, onChangeMenu }) => {
     const [responseMessage, setResponseMessage] = useState('');
 
     const handleFormSubmitResetPassword = async (formData) => {
-        const response = await fetch('http://localhost/demo_installer_page/api/cambiar_contrasena.php', {
+        const response = await fetch(process.env.CAMBIAR_CONTRASENA, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ const Step = ({ value, changeStep, onChangeMenu }) => {
         }
     };
     const handleFormSubmit = async (formData) => {
-        const response = await fetch('http://localhost/demo_installer_page/api/importar_base_datos.php', {
+        const response = await fetch(process.env.IMPORTAR_BASE_DATOS, {
             method: 'POST',
             body: formData // `Content-Type` se ajustará automáticamente al usar FormData
         });
@@ -54,7 +54,7 @@ const Step = ({ value, changeStep, onChangeMenu }) => {
         onChangeMenu(JSON.parse(textContent))
 
         // Realizar la solicitud al servidor
-        const response = await fetch('http://localhost/demo_installer_page/api/importar_menu.php', {
+        const response = await fetch(process.env.IMPORTAR_MENU, {
             method: 'POST',
             body: formData,
             headers: {

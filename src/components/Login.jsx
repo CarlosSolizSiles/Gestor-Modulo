@@ -10,7 +10,7 @@ const Login = ({ onSubmit }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost/demo_installer_page/api/login.php', {
+            const response = await fetch(process.env.LOGIN, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
