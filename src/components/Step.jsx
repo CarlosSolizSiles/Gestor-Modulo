@@ -78,7 +78,7 @@ const Step = ({ value, changeStep, onChangeMenu }) => {
         case 0:
             return (
                 <>
-                    <h2>Cambiar Nombre de Usuario y Contraseña</h2>
+                    <h2>Cambiar Email de Usuario y Contraseña</h2>
                     <UserForm onSubmit={handleFormSubmitResetPassword} />
                     <ResponseMessage message={responseMessage} />
                 </>

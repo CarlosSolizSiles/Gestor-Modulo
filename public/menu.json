@@ -7,20 +7,30 @@
                 "subSectionTitle": "ABM",
                 "subLinks": [
                     {
-                        "linkName": "Gestionar herramientas y consumibles",
-                        "url": "public/panol-abm/ver"
+                        "section": "Gestionar",
+                        "links": [
+                            {
+                                "linkName": "Gestionar herramientas y consumibles",
+                                "url": "public/panol-abm/ver"
+                            },
+                            {
+                                "linkName": "Gestionar categoría, subcategoría y tipo",
+                                "url": "public/panol-abm/gestion_categorias"
+                            }
+                        ]
                     },
                     {
-                        "linkName": "Gestionar categoría, subcategoría y tipo",
-                        "url": "public/panol-abm/gestion_categorias"
-                    },
-                    {
-                        "linkName": "Agregar herramientas",
-                        "url": "public/panol-abm/subir_herramientas"
-                    },
-                    {
-                        "linkName": "Agregar consumibles",
-                        "url": "public/panol-abm/subir_consumibles"
+                        "section": "Agregar",
+                        "links": [
+                            {
+                                "linkName": "Agregar herramientas",
+                                "url": "public/panol-abm/subir_herramientas"
+                            },
+                            {
+                                "linkName": "Agregar consumibles",
+                                "url": "public/panol-abm/subir_consumibles"
+                            }
+                        ]
                     }
                 ]
             },
@@ -29,8 +39,13 @@
                 "subSectionTitle": "Pedidos",
                 "subLinks": [
                     {
-                        "linkName": "Ejemplo",
-                        "url": "public/panol-abm/a.html"
+                        "section": "Agregar",
+                        "links": [
+                            {
+                                "linkName": "Ejemplo",
+                                "url": "public/panol-abm/a.html"
+                            }
+                        ]
                     }
                 ]
             }

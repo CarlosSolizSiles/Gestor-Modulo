@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './sidebar.css';
 
-function Sidebar({ changeUrl, lists_url }) { 
+function Sidebar({ changeUrl, lists_url }) {
     // Estado para controlar qué sección está activa
     const [activeSection, setActiveSection] = useState(0);
     const [openSections, setOpenSections] = useState({});
@@ -24,9 +24,9 @@ function Sidebar({ changeUrl, lists_url }) {
         <div className="sidebar">
             <div className="windows-btn">
                 {lists_url.map(({ sectionTitle, sectionKey }, i) => (
-                    <button 
-                        key={i} 
-                        onClick={() => activateSection(i)} 
+                    <button
+                        key={i}
+                        onClick={() => activateSection(i)}
                         className={activeSection === sectionKey ? 'active-tab' : ''}
                     >
                         <h3>{sectionTitle}</h3>
@@ -35,9 +35,8 @@ function Sidebar({ changeUrl, lists_url }) {
             </div>
 
             {lists_url.map(({ sectionKey, subSections }, i) => {
-                if (activeSection !== i) {
-                    return <></>
-                }
+                if (activeSection !== i) return null;
+
                 return (
                     <div className="dropdown" key={i}>
                         {subSections.map(({ subSectionTitle, subLinks }, j) => (
@@ -50,10 +49,15 @@ function Sidebar({ changeUrl, lists_url }) {
                                 </h4>
                                 {openSections[subSectionTitle] && (
                                     <div className="dropdown-content">
-                                        {subLinks.map(({ url, linkName }, k) => (
-                                            <button key={k} onClick={() => changeUrl(url)}>
-                                                {linkName}
-                                            </button>
+                                        {subLinks?.map((linkGroup, k) => (
+                                            <div key={k}>
+                                                <h5 className="link-group-title">{linkGroup.section}</h5>
+                                                {linkGroup.links.map(({ url, linkName }, l) => (
+                                                    <button key={l} onClick={() => changeUrl(url)}>
+                                                        {linkName}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         ))}
                                     </div>
                                 )}
