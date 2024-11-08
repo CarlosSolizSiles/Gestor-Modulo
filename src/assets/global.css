@@ -19,8 +19,8 @@ html {
 
 iframe {
     height: 100%;
-    width: calc(100vw - 350px);
-    margin-left: 350px;
+    width: calc(100vw - 320px);
+    margin-left: 320px;
 }
 
 header {
@@ -74,8 +74,8 @@ ul li a:hover {
 
 .container_steps.step {
     height: 100%;
-    width: calc(100vw - 350px);
-    margin-left: 350px;
+    width: calc(100vw - 320px);
+    margin-left: 320px;
 }
 
 .container_steps.step h2 {
@@ -162,5 +162,38 @@ ul li a:hover {
     :hover {
         background: rgba(0, 118, 255, 0.9);
         box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+    }
+}
+
+.menu__label {
+    cursor: pointer;
+}
+
+.icon_menu {
+    width: 40px;
+    height: 40px;
+}
+
+#menu {
+    display: none;
+}
+
+.li__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 640px) {
+    .li__menu {
+        display: none;
+    }
+}
+
+@media not (min-width: 640px) {
+    iframe, .container_steps.step {
+        height: 100%;
+        width: 100vw;
+        margin: 0;
     }
 }

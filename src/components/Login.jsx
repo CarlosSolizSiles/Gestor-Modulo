@@ -21,7 +21,7 @@ const Login = ({ onSubmit }) => {
             const data = await response.json();
 
             if (data.success) {
-                localStorage.setItem('token', data.token);
+                sessionStorage.setItem('token', data.token);
                 setIsAuthenticated(true);
                 onSubmit(data.token)
             } else {

@@ -42,7 +42,7 @@
                         "section": "Agregar",
                         "links": [
                             {
-                                "linkName": "Ejemplo",
+                                "linkName": "Elegir herramientas",
                                 "url": "public/panol-abm/a.html"
                             }
                         ]

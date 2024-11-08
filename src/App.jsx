@@ -2,31 +2,20 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/sidebar.jsx';
-import './components/sidebar.css';
 import Login from './components/Login.jsx';
 import { obtenerDatosJWT } from './lib/obtenerDatosJWT.js';
 import VerificarPaso from './lib/verificarPaso.js';
 import Step from './components/Step.jsx';
-import menuJSON from "../public/menu.json"
-
-const lists_url = menuJSON ?? [];
+import { BiMenu } from 'react-icons/bi';
 
 function App() {
-  const [step, setStep] = useState(localStorage.getItem("step"));
+  const [step, setStep] = useState(sessionStorage.getItem("step"));
   const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT());
-  const [appUrl, setUrl] = useState("");
+  const [appUrl, setUrl] = useState(" ");
   const [isEnableForm, setIsEnableForm] = useState(false);
-  const [menu, setMenu] = useState(lists_url)
+  const [menu, setMenu] = useState(window.menu ?? [])
 
   useEffect(() => {
-    fetch(process.env.MENU).then(x => x.json())
-      .then(x => {
-        setMenu(x)
-      })
-      .catch(() => {
-        setMenu([])
-      })
-
     VerificarPaso().then(x => {
       setStep(x);
     });
@@ -38,7 +27,7 @@ function App() {
 
   const hanlderInitDownload = (e) => {
     e.preventDefault();
-    localStorage.step = 0;
+    sessionStorage.step = 0;
   };
 
   const handleLogin = (e) => {
@@ -50,7 +39,7 @@ function App() {
     e.preventDefault();
     // Aquí deberías agregar la lógica para cerrar sesión
     // Ejemplo: setUserAutentic({ data: null });
-    localStorage.removeItem('token'); // Elimina el token o la información del usuario del almacenamiento local
+    sessionStorage.removeItem('token'); // Elimina el token o la información del usuario del almacenamiento local
     setUserAutentic(null);
   };
 
@@ -62,15 +51,25 @@ function App() {
     <Router>
       <header>
         <nav>
-          <a href="/"><img src="https://cdn-icons-png.flaticon.com/512/7001/7001366.png" alt="" /></a>
           <ul>
-            {step === 0 && !localStorage.getItem("step") ? (
+            <li className='li__menu'>
+              <label htmlFor="menu" className='menu__label'>
+                <BiMenu className='icon_menu' />
+              </label>
+              <input type="checkbox" id='menu' />
+            </li>
+            <li>
+              <a href="/"><img src="https://cdn-icons-png.flaticon.com/512/7001/7001366.png" alt="" /></a>
+            </li>
+          </ul>
+          <ul>
+            {step === 0 && !sessionStorage.getItem("step") ? (
               <li><a href="/" onClick={hanlderInitDownload}>Iniciar Instalación</a></li>
             ) : (
               !userAutentic?.data ? (
                 <li><a href="/" onClick={handleLogin}>Iniciar Sesión</a></li>
               ) : (
-                <li><a href="/" onClick={handleLogout}>Cerrar Sesión</a></li>
+                    <li><a href="/" onClick={handleLogout}>Cerrar Sesión ({userAutentic?.data?.rol})</a></li>
               )
             )}
           </ul>
@@ -88,7 +87,7 @@ function App() {
             setUserAutentic(value)
             location.reload();
           }} /> : <Step value={step} changeStep={(value) => {
-            localStorage.step = value;
+            sessionStorage.step = value;
             setStep(value);
           }}
             onChangeMenu={(value) => { setMenu(value) }}

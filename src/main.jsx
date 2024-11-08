@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './global.css'
+import './assets/global.css'
 import App from './App.jsx'
 import { obtenerDatosJWT } from './lib/obtenerDatosJWT.js';
 
@@ -16,6 +16,13 @@ window.addEventListener("message", (event) => {
 
     // Envía el valor de vuelta al iframe
     event.source.postMessage({ type: "localStorageValue", value }, event.origin);
+  }
+  if (type === "getDarkMode") {
+    // Obtiene el valor del localStorage de la página principal
+    const value = JSON.parse(localStorage.darkMode ?? false)
+
+    // Envía el valor de vuelta al iframe
+    event.source.postMessage({ type: "getDarkMode", value }, event.origin);
   }
 });
 

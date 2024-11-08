@@ -1,0 +1,132 @@
+:root {
+    /* Colores */
+    --fondo: #fff;
+    --objetos: #f8f8f8;
+    --objetosOscuro: #e8ecee;
+    --objetosOscurosMas: #6c747e;
+    --borde: #dfdfdf;
+
+    /* Colores */
+    --btn-red: #e80000;
+    --btn-green: #00bb35;
+    --btn-blue: #009dff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: arial;
+}
+
+/* Estilos para el modo oscuro */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Componentes en modo oscuro */
+.dark-mode .header,
+.dark-mode .nav,
+.dark-mode .main {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .opcion-nav {
+    color: #e0e0e0;
+}
+
+.dark-mode .opcion-nav.active {
+    color: #ffffff;
+    background-color: #333;
+}
+
+.dark-mode .buscar_filtro {
+    background-color: #333;
+    color: #ffffff;
+}
+
+/* Estilos para el botón */
+.dark-mode-btn {
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+
+/* Estilos del Modo Oscuro para contenedor de herramientas y botón de búsqueda */
+body.dark-mode .contenedor_herramientas {
+    background-color: #2e2e2e; /* Fondo oscuro */
+    color: #f5f5f5; /* Texto claro */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .contenedor_herramientas .categoria_herramienta {
+    color: #ff9800; /* Color destacado para categorías */
+}
+
+body.dark-mode .contenedor_herramientas select,
+body.dark-mode .contenedor_herramientas input[type="search"] {
+    background-color: #444;
+    color: #f5f5f5;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+body.dark-mode .buscar_filtro {
+    background-color: #ff9800; /* Color vibrante para botón */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .buscar_filtro:hover {
+    background-color: #e68a00; /* Sombra oscura para el hover */
+}
+
+body.dark-mode .modulo .contenedor-opciones {
+    background-color: #333333; /* Fondo oscuro para el menú */
+    box-shadow: 0px 0px 5px inset #555;
+}
+
+body.dark-mode .modulo .contenedor-opciones .opcion-nav {
+    color: #f5f5f5;
+}
+
+body.dark-mode .modulo .contenedor-opciones .opcion-nav.active {
+    background-color: #444444;
+}
+
+body.dark-mode .boton_nav {
+    background-color: #444;
+    color: #ff9800;
+}
+
+body.dark-mode .boton_nav:hover {
+    background-color: #666;
+}
+
+/* Icono para modo claro (sol) */
+body:not(.dark-mode) .dark-mode-btn::before {
+    content: "🌙"; /* Icono de luna */
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* Icono para modo oscuro (luna) */
+body.dark-mode .dark-mode-btn::before {
+    content: "☀️"; /* Icono de sol */
+    margin-right: 8px;
+    font-size: 1.2em;
+}

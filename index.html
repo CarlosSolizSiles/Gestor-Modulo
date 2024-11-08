@@ -1,13 +1,93 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    var menu = [
+      {
+        "sectionTitle": "Pañol",
+        "subSections": [
+          {
+            "sectionKey": "panol-abm",
+            "subSectionTitle": "ABM",
+            "subLinks": [
+              {
+                "section": "Gestionar",
+                "links": [
+                  {
+                    "linkName": "Gestionar herramientas y consumibles",
+                    "url": "public/panol-abm/ver"
+                  },
+                  {
+                    "linkName": "Gestionar categoría, subcategoría y tipo",
+                    "url": "public/panol-abm/gestion_categorias"
+                  }
+                ]
+              },
+              {
+                "section": "Agregar",
+                "links": [
+                  {
+                    "linkName": "Agregar herramientas",
+                    "url": "public/panol-abm/subir_herramientas"
+                  },
+                  {
+                    "linkName": "Agregar consumibles",
+                    "url": "public/panol-abm/subir_consumibles"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sectionKey": "pedidos",
+            "subSectionTitle": "Pedidos",
+            "subLinks": [
+              {
+                "section": "Herramientas",
+                "links": [
+                  {
+                    "linkName": "Elegir herramientas",
+                    "url": "public/pedidos/index.html"
+                  },
+                  {
+                    "linkName": "Herramientas pedidas",
+                    "url": "public/pedidos/herramientas-pedidas.html"
+                  },
+                  {
+                    "linkName": "Tu pedido",
+                    "url": "public/pedidos/tu-pedido.html"
+                  }
+                ]
+              },
+              {
+                "section": "Gestionar",
+                "links": [
+                  {
+                    "linkName": "Gestionar pedido",
+                    "url": "public/pedidos/cambiar-estado-pedido.html"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "sectionTitle": "Académicas",
+        "subSections": []
+      }
+    ];
+  </script>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

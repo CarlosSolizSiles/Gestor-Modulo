@@ -1,6 +1,5 @@
 // PÁGINA PRINCIPAL
 import React, { useState } from 'react';
-import './sidebar.css';
 import UserForm from './UserForm';
 import AnotherForm from './AnotherForm'; // Ejemplo de otro formulario
 import ResponseMessage from './ResponseMessage';

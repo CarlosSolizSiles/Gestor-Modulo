@@ -1,7 +1,7 @@
 /* sidebar.css */
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     width: 300px;
     height: calc(100vh - 86px);
     top: 64px;
@@ -11,9 +11,15 @@
     overflow-y: auto;
 }
 
+.sidebar main {
+    /* background-color: rebeccapurple; */
+    min-height: calc(100% - 103px);
+}
+
 .windows-btn {
     display: flex;
     flex-direction: row;
+    height: auto;
 }
 
 .windows-btn button {
@@ -25,6 +31,7 @@
     cursor: pointer;
     text-align: left;
     transition: background-color 0.3s;
+    text-align: center;
 }
 
 .windows-btn button:hover {
@@ -49,7 +56,12 @@
     background-color: #f1f1f1;
     border-radius: 5px;
     transition: background-color 0.3s;
-    margin-bottom: 0;
+    margin: 0;
+
+}
+
+.dropdown-header:not(:first-child) {
+    margin-top: 10px;
 }
 
 .dropdown-header:hover {
@@ -91,4 +103,61 @@
 .active-tab {
     background-color: #d0e4f7;
     font-weight: bold;
+}
+
+.link-group-title~button {
+    width: 100%;
+    display: block;
+}
+
+@media not (min-width: 640px) {
+    .sidebar {
+        width: calc(100% - 20px);
+        transition: left 300ms ease;
+        left: -100%;
+    }
+
+    body:has(#menu:checked) .sidebar {
+        left: 0;
+    }
+}
+
+/* Estilos para el botón */
+.dark-mode-btn {
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+
+/* Icono para modo claro (sol) */
+body:not(.dark-mode) .dark-mode-btn {
+    &::before {
+        content: "🌙";
+        /* Icono de luna */
+        margin-right: 8px;
+        font-size: 1.2em;
+    }
+
+    &::after {
+        content: " Claro";
+    }
+}
+
+/* Icono para modo oscuro (luna) */
+body.dark-mode .dark-mode-btn {
+    &::before {
+        content: "☀️";
+        /* Icono de sol */
+        margin-right: 8px;
+        font-size: 1.2em;
+    }
+
+    &::after {
+        content: " Oscuro";
+    }
 }

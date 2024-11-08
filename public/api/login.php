@@ -13,7 +13,7 @@ $secretKey = "your_secret_key";
 // Conexión a la base de datos
 $dsn = 'mysql:host=localhost;dbname=panol;charset=utf8';
 $username = 'root';
-$password = '';
+$password = 'root';
 
 try {
     $pdo = new PDO($dsn, $username, $password);

@@ -1,9 +1,9 @@
 import { jwtDecode } from "jwt-decode";
 
-// Función para obtener el token JWT desde el localStorage
+// Función para obtener el token JWT desde el sessionStorage
 const obtenerJWT = () => {
-    // Intenta obtener el token desde el localStorage
-    const token = localStorage.getItem("token");
+    // Intenta obtener el token desde el sessionStorage
+    const token = sessionStorage.getItem("token");
 
     // Si el token existe, lo devuelve, si no, devuelve null
     return token ? token : null;
