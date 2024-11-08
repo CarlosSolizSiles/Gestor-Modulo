@@ -69,7 +69,7 @@ function App() {
               !userAutentic?.data ? (
                 <li><a href="/" onClick={handleLogin}>Iniciar Sesión</a></li>
               ) : (
-                    <li><a href="/" onClick={handleLogout}>Cerrar Sesión ({userAutentic?.data?.rol})</a></li>
+                <li><a href="/" onClick={handleLogout}>Cerrar Sesión ({userAutentic?.data?.rol})</a></li>
               )
             )}
           </ul>
@@ -79,9 +79,9 @@ function App() {
         <Sidebar changeUrl={changeUrl} lists_url={menu} />
 
         {step === -1 ? (step === -1 && !isEnableForm) ? (<iframe id="miIframe" src={appUrl} frameBorder="0" key={appUrl}></iframe>) : <div className='container_steps step'><Login onSubmit={(value) => {
-          setUserAutentic(value)
-          setIsEnableForm(false)
-
+          setUserAutentic(value);
+          setIsEnableForm(false);
+          location.reload();
         }} /></div> : <div className={`container_steps ${step !== -1 ? " step" : ""}`}>
           {!userAutentic?.data ? <Login onSubmit={(value) => {
             setUserAutentic(value)
