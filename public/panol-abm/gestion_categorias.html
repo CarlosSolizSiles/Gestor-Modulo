@@ -13,9 +13,8 @@
 <body>
   <script>
     function recibirMensajeDesdePrincipal(event) {
-      if (event.data && Object.keys(event.data).includes("modeDark")) {
-        console.log(event.data.modeDark);
-
+      if (event.data && Object.keys(event.data).includes("darkMode")) {
+        document.body.classList.toggle('dark-mode', event.data.darkMode);
       } else {
         console.warn("Mensaje recibido no tiene el formato esperado");
       }
@@ -23,7 +22,6 @@
 
     // Escucha el evento de mensajes
     window.addEventListener('message', recibirMensajeDesdePrincipal, false);
-
   </script>
   <div id="root"></div>
 </body>

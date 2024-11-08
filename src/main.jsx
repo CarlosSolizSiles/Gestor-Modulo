@@ -17,13 +17,6 @@ window.addEventListener("message", (event) => {
     // Envía el valor de vuelta al iframe
     event.source.postMessage({ type: "localStorageValue", value }, event.origin);
   }
-  if (type === "getDarkMode") {
-    // Obtiene el valor del localStorage de la página principal
-    const value = JSON.parse(localStorage.darkMode ?? false)
-
-    // Envía el valor de vuelta al iframe
-    event.source.postMessage({ type: "getDarkMode", value }, event.origin);
-  }
 });
 
 createRoot(document.getElementById('root')).render(
