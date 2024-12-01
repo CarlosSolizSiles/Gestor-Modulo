@@ -1,8 +1,10 @@
 import React, { useLayoutEffect, useState } from 'react';
 import '../assets/sidebar.css';
 import { enviarCambioModo } from '../lib/enviarCambioModo';
+import { Link, useLocation } from 'react-router-dom';
 
-function Sidebar({ changeUrl, lists_url }) {
+function SideBar({ lists_url }) {
+    const location = useLocation()
     // Estado para controlar qué sección está activa
     const [activeSection, setActiveSection] = useState(0);
     const [openSections, setOpenSections] = useState({});
@@ -12,8 +14,8 @@ function Sidebar({ changeUrl, lists_url }) {
 
     useLayoutEffect(() => {
         document.body.classList.toggle('dark-mode', isDarkMode);
-        enviarCambioModo(isDarkMode);
-    }, [])
+        // enviarCambioModo(isDarkMode);
+    }, [location])
 
     // Función para cambiar el modo oscuro
     const toggleDarkMode = () => {
@@ -70,9 +72,9 @@ function Sidebar({ changeUrl, lists_url }) {
                                                 <div key={k}>
                                                     <h5 className="link-group-title">{linkGroup.section}</h5>
                                                     {linkGroup.links.map(({ url, linkName }, l) => (
-                                                        <button key={l} onClick={() => changeUrl(url)}>
+                                                        <Link key={url} to={`/module?q=${url}`}>
                                                             {linkName}
-                                                        </button>
+                                                        </Link>
                                                     ))}
                                                 </div>
                                             ))}
@@ -94,4 +96,4 @@ function Sidebar({ changeUrl, lists_url }) {
     );
 }
 
-export default Sidebar;
+export default SideBar;

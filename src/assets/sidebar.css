@@ -81,7 +81,7 @@
     padding-top: 5px;
 }
 
-.dropdown-content button {
+.dropdown-content a {
     padding: 8px;
     margin: 2px 0;
     font-size: 15px;
@@ -92,11 +92,11 @@
     transition: background-color 0.3s;
 }
 
-.dropdown-content button:hover {
+.dropdown-content a:hover {
     background-color: #e8e8e8;
 }
 
-.dropdown-content button:active {
+.dropdown-content a:active {
     background-color: #cccccc;
 }
 
@@ -105,9 +105,12 @@
     font-weight: bold;
 }
 
-.link-group-title~button {
-    width: 100%;
+.link-group-title~a {
+    max-width: calc(100% - 22px);
+    width: calc(100% - 22px);
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media not (min-width: 640px) {
@@ -160,4 +163,10 @@ body.dark-mode .dark-mode-btn {
     &::after {
         content: " Oscuro";
     }
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    /* no underline */
 }

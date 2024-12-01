@@ -191,9 +191,15 @@ ul li a:hover {
 }
 
 @media not (min-width: 640px) {
-    iframe, .container_steps.step {
+
+    iframe,
+    .container_steps.step {
         height: 100%;
         width: 100vw;
         margin: 0;
     }
+}
+
+iframe {
+    border: none;
 }
