@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { obtenerDatosJWT } from '../lib/obtenerDatosJWT';
 
 const Login = () => {
+    const navigation = useNavigate()
+    const [userAutentic] = useState(obtenerDatosJWT());
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -22,7 +25,7 @@ const Login = () => {
 
             if (data.success) {
                 sessionStorage.setItem('token', data.token);
-                setIsAuthenticated(true);
+                navigation("/")
             } else {
                 setError(data.message || 'Credenciales incorrectas');
             }
@@ -32,8 +35,12 @@ const Login = () => {
         }
     };
 
-    if (isAuthenticated) {
-        return <p>Autenticación exitosa. ¡Bienvenido!</p>;
+    useEffect(() => {
+        if (userAutentic) navigation("/")
+    }, [])
+
+    if (userAutentic) {
+        return <></>
     }
 
     return (

@@ -3,12 +3,20 @@
 .sidebar {
     position: fixed;
     width: 300px;
-    height: calc(100vh - 86px);
+    height: calc(100vh - 84px);
     top: 64px;
     background-color: #f9f9f9;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
     overflow-y: auto;
+}
+
+/* Transición suave para cambio de modo */
+.sidebar,
+.windows-btn button,
+.dropdown-header,
+.dropdown-content a {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .sidebar main {
@@ -111,6 +119,8 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
+    color: black;
 }
 
 @media not (min-width: 640px) {
@@ -147,26 +157,85 @@ body:not(.dark-mode) .dark-mode-btn {
     }
 
     &::after {
-        content: " Claro";
+        content: " Oscuro";
     }
 }
 
 /* Icono para modo oscuro (luna) */
 body.dark-mode .dark-mode-btn {
+    background-color: rgb(255, 255, 255);
+    color: black;
+
     &::before {
         content: "☀️";
         /* Icono de sol */
         margin-right: 8px;
         font-size: 1.2em;
+
     }
 
     &::after {
-        content: " Oscuro";
+        content: " Claro";
     }
 }
 
-a {
-    color: black;
-    text-decoration: none;
-    /* no underline */
+/* Estilos para el modo oscuro en la sidebar */
+body.dark-mode .sidebar {
+    background-color: #333333;
+    /* Fondo oscuro */
+    color: #f1f1f1;
+    /* Texto claro */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .sidebar main {
+    background-color: #333333;
+}
+
+body.dark-mode .windows-btn button {
+    background-color: #444444;
+    /* Botones en modo oscuro */
+    color: #f1f1f1;
+    border-bottom: 1px solid #555555;
+}
+
+body.dark-mode .windows-btn button:hover {
+    background-color: #555555;
+    /* Hover en modo oscuro */
+}
+
+body.dark-mode .windows-btn button h3 {
+    color: #f1f1f1;
+}
+
+body.dark-mode .dropdown-header {
+    background-color: #444444;
+    color: #f1f1f1;
+}
+
+body.dark-mode .dropdown-header:hover {
+    background-color: #555555;
+}
+
+body.dark-mode .dropdown-content a {
+    background-color: #444444;
+    color: #f1f1f1;
+}
+
+body.dark-mode .dropdown-content a:hover {
+    background-color: #555555;
+}
+
+body.dark-mode .dropdown-content a:active {
+    background-color: #666666;
+}
+
+body.dark-mode .link-group-title {
+    color: #f1f1f1;
+}
+
+body.dark-mode .active-tab {
+    background-color: #5a7d9a;
+    /* Fondo para la pestaña activa en modo oscuro */
+    color: #ffffff;
 }

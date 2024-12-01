@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiMenu } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { obtenerDatosJWT } from '../lib/obtenerDatosJWT';
 
 
-function NavBar({ handleLogout, userAutentic }) {
+function NavBar() {
+    const location = useLocation()
+    const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT());
 
+    const handleLogout = () => {
+        sessionStorage.removeItem('token'); // Elimina el token o la información del usuario del almacenamiento local
+        setUserAutentic(null);
+    };
+
+    useEffect(() => {
+        setUserAutentic(obtenerDatosJWT())
+    }, [location])
 
     return (
         <nav>
