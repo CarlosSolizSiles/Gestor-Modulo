@@ -5,10 +5,11 @@ import "../assets/login.css";
 
 const Login = () => {
     const navigation = useNavigate()
-    const [userAutentic] = useState(obtenerDatosJWT());
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const userAutentic = obtenerDatosJWT();
 
     const handleLogin = async (e) => {
         e.preventDefault();

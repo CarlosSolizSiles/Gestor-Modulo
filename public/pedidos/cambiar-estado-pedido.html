@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Código para solicitar el localStorage desde el iframe
+            function requestLocalStorage() {
+                return new Promise((resolve) => {
+                    // Escucha la respuesta del localStorage desde la página principal
+                    window.addEventListener("message", function handler(event) {
+                        if (event.origin !== window.origin) return;
+
+                        const { type, value } = event.data;
+                        if (type === "localStorageValue") {
+                            resolve(value);
+                            window.removeEventListener("message", handler);
+                        }
+                    });
+
+                    // Envía una solicitud a la página principal para obtener el valor del localStorage
+                    window.parent.postMessage({ type: "getLocalStorage" }, window.origin);
+                });
+            }
+
+            // Ejemplo de uso al cargar el iframe
+            window.onload = function () {
+                requestLocalStorage("token").then((valor) => {
+                    console.log("Valor de localStorage desde la página principal:", valor.data);
+                    // alert("Valor de localStorage desde la página principal:", valor.data);
+                });
+            };
+    </script>
+</body>
+</html>
