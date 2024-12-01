@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { obtenerDatosJWT } from '../lib/obtenerDatosJWT';
+import "../assets/login.css";
 
 const Login = () => {
     const navigation = useNavigate()

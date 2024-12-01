@@ -21,6 +21,11 @@
             }
         }
 
+        // Establecer modo oscuro si está activado en localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
         // Escucha el evento de mensajes
         window.addEventListener('message', recibirMensajeDesdePrincipal, false);
     </script>

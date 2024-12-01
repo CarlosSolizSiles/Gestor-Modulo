@@ -17,7 +17,8 @@ html {
 }
 
 
-iframe {
+iframe,
+.container_steps.step {
     height: 100%;
     width: calc(100vw - 320px);
     margin-left: 320px;
@@ -72,66 +73,6 @@ ul li a:hover {
     /* Color para el hover */
 }
 
-.container_steps.step {
-    height: 100%;
-    width: calc(100vw - 320px);
-    margin-left: 320px;
-}
-
-.container_steps.step h2 {
-    text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 1em;
-    color: #333;
-}
-
-.container_steps.step form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2em;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 1.5em;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.container_steps.step label {
-    display: flex;
-    flex-direction: column;
-    font-size: 1em;
-    color: #555;
-    width: 100%;
-}
-
-.container_steps.step input[type="text"],
-.container_steps.step input[type="email"],
-.container_steps.step input[type="password"] {
-    padding: 0.8em;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 0.5em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.container_steps.step button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 1.1em;
-    padding: 0.8em 1.5em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.container_steps.step button[type="submit"]:hover {
-    background-color: #45A049;
-}
 
 .container_steps.step p {
     text-align: center;
@@ -202,4 +143,8 @@ ul li a:hover {
 
 iframe {
     border: none;
+}
+
+body.dark-mode {
+    background-color: #1e1e1e;
 }

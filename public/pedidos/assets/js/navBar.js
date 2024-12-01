@@ -56,11 +56,5 @@ function toggleDarkMode() {
     document.getElementById('dark-mode-toggle').textContent = isDarkMode ? "Modo Claro" : "Modo Oscuro";
 }
 
-// Establecer modo oscuro si está activado en localStorage
-if (localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark-mode');
-    document.getElementById('dark-mode-toggle').textContent = "Modo Claro";
-}
-
 // Añadir el evento para el botón de modo oscuro
 document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);

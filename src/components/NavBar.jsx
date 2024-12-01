@@ -27,7 +27,7 @@ function NavBar() {
                     <input type="checkbox" id='menu' />
                 </li>
                 <li>
-                    <a href="/"><img src="https://cdn-icons-png.flaticon.com/512/7001/7001366.png" alt="" /></a>
+                    <Link to="/"><img src="https://cdn-icons-png.flaticon.com/512/7001/7001366.png" alt="" /></Link>
                 </li>
             </ul>
             <ul>

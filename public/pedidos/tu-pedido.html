@@ -23,6 +23,11 @@
                 console.warn("Mensaje recibido no tiene el formato esperado");
             }
         }
+        
+        // Establecer modo oscuro si está activado en localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
 
         // Escucha el evento de mensajes
         window.addEventListener('message', recibirMensajeDesdePrincipal, false);
