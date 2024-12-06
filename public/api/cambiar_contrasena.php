@@ -2,7 +2,8 @@
 // Configuración de la base de datos
 include "../lib/conn.php"; // Asegúrate de que esta conexión usa mysqli
 
-require_once __DIR__ . '/../lib/cors.php'; // habilitar cors al puerto 5173
+require_once __DIR__ . '/../lib/cors.php'; // habilitar CORS al puerto 5173
+require_once __DIR__ . '/../lib/logCreator.php'; // Importar la función createLog
 
 // Manejo de la solicitud preflight (OPTIONS)
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -26,16 +27,24 @@ if (isset($data['nueva_email']) && isset($data['nueva_password']) && isset($data
         $stmt->bind_param("sss", $nuevaEmail, $nuevaPasswordHashed, $id_user);
 
         if ($stmt->execute()) {
+            // Log de éxito
+            createLog('USER', "El usuario con ID '$id_user' ha sido actualizado correctamente.");
             echo json_encode(["status" => "success", "message" => "Usuario actualizado correctamente"]);
         } else {
+            // Log de error
+            createLog('USER', "Error al actualizar el usuario con ID '$id_user'.");
             echo json_encode(["status" => "error", "message" => "Error al actualizar el usuario"]);
         }
 
         $stmt->close();
     } else {
+        // Log de error de contraseñas no coincidentes
+        createLog('USER', "Las contraseñas no coinciden para el usuario con ID '$id_user'.");
         echo json_encode(["status" => "error", "message" => "Las contraseñas no coinciden"]);
     }
 } else {
+    // Log de falta de datos en la solicitud
+    createLog('USER', "Faltan datos en la solicitud para actualizar el usuario.");
     echo json_encode(["status" => "error", "message" => "Faltan datos en la solicitud"]);
 }
 
