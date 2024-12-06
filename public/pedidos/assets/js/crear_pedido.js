@@ -1,8 +1,5 @@
 // Asegúrate de que el script se carga después de que el DOM esté listo
-document.addEventListener("DOMContentLoaded", function () {
-    const enviarPedidoBtn = document.getElementById('enviarPedidoBtn');
-    enviarPedidoBtn.addEventListener('click', enviarPedido);
-});
+
 
 function enviarPedido() {
     // Obtener pedidos del localStorage
@@ -36,7 +33,7 @@ function enviarPedido() {
     };
 
     // Enviar la solicitud POST al servidor
-    fetch('http://127.0.0.1:5000/crear_pedido', {
+    fetch('http://localhost:5500/crear_pedido', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

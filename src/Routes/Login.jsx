@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { obtenerDatosJWT } from '../lib/obtenerDatosJWT';
 import "../assets/login.css";
 
-const Login = () => {
+const Login = ({ step }) => {
     const navigation = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,7 +27,16 @@ const Login = () => {
 
             if (data.success) {
                 sessionStorage.setItem('token', data.token);
-                navigation("/")
+                if (step != -1) {
+                    const rol = obtenerDatosJWT()?.data?.rol ?? ""
+                    if (rol !== "administrador") {
+                        setError('Usuario no cumple con el rol');
+                        return;
+                    }
+                }
+
+                console.log();
+                navigation(step != -1 ? "/install" : "/")
             } else {
                 setError(data.message || 'Credenciales incorrectas');
             }
@@ -41,9 +50,6 @@ const Login = () => {
         if (userAutentic) navigation("/")
     }, [])
 
-    if (userAutentic) {
-        return <></>
-    }
 
     return (
         <div className="container_steps step">

@@ -2,10 +2,7 @@
 // Configuración de la base de datos
 include "../lib/conn.php"; // Asegúrate de que esta conexión usa mysqli
 
-// Encabezados CORS
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+require_once __DIR__ . '/../lib/cors.php'; // habilitar cors al puerto 5173
 
 // Manejo de la solicitud preflight (OPTIONS)
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {

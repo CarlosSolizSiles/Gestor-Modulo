@@ -1,27 +1,13 @@
 <?php
+require_once __DIR__ . '/../lib/cors.php'; // habilitar cors al puerto 5173
+require_once __DIR__ . '/../lib/conn.php'; // Incluye la conexión
 require_once __DIR__ . '/../JWT/JWT.php'; // Ajusta si es necesario
 use Firebase\JWT\JWT;
 
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
 // Clave secreta para firmar el token
 $secretKey = "your_secret_key";
-
-// Conexión a la base de datos
-$dsn = 'mysql:host=localhost;dbname=panol;charset=utf8';
-$username = 'root';
-$password = 'root';
-
-try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Error de conexión a la base de datos"]);
-    exit();
-}
 
 // Decodifica la solicitud JSON
 $data = json_decode(file_get_contents("php://input"), true);
@@ -31,13 +17,14 @@ if (isset($data['email']) && isset($data['password'])) {
     $password = $data['password'];
 
     // Consulta a la base de datos para validar credenciales
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email LIMIT 1");
-    $stmt->bindParam(':email', $email);
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = ? LIMIT 1");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
     // Verifica la contraseña
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && password_verify($password, $user['password'])) { // Cambiar a password_verify si usas hash
         // Genera el token JWT
         $payload = [
             "iss" => "http://tudominio.com",  // Emisor
@@ -46,7 +33,8 @@ if (isset($data['email']) && isset($data['password'])) {
             "data" => [
                 "id" => $user['id'],
                 "name" => $user['nombre'],
-                "email" => $user['email']
+                "email" => $user['email'],
+                "rol" => $user['rol']
             ]
         ];
         $jwt = JWT::encode($payload, $secretKey, 'HS256');

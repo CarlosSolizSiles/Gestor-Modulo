@@ -8,7 +8,6 @@
 }
 
 
-
 .modal {
     position: fixed;
     z-index: 9999;
@@ -41,10 +40,12 @@
         "cantidad-modal botones-modal";
     column-gap: 5px;
 }
-.img{
+
+.img {
     overflow: hidden;
 }
-.etiqueta{
+
+.etiqueta {
     width: 100%;
     height: 40px;
     display: flex;
@@ -53,6 +54,7 @@
     border-radius: 8px;
     margin-top: 20px;
 }
+
 .cont-modal-img {
     grid-area: "img-modal";
     grid-column: 1/2;
@@ -147,7 +149,8 @@
     box-shadow: 0px 0px 5px var(--objetosOscurosMas);
 }
 
-.modal-botones .modal-añadir ,.modal-botones .modal-añadir2 {
+.modal-botones .modal-añadir,
+.modal-botones .modal-añadir2 {
     background-color: var(--btn-blue);
 }
 
@@ -176,13 +179,15 @@
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
-    width: 45%;
+    width: calc(50% - 10px);
 }
+
 @media (max-width: 800px) {
     .contenedor_herramientas .contendor_opciones_herramienta .categoria_herramienta {
         width: 93%;
     }
-    }
+}
+
 .contenedor_herramientas .contendor_opciones_herramienta .categoria_herramienta.active {
     background-color: var(--fondo);
     border: 1px solid var(--borde);
@@ -202,12 +207,14 @@
     .cotenedor_filtro .filtro {
         width: 21.6%;
     }
-    }
+}
+
 @media (max-width: 1000px) {
     .cotenedor_filtro .filtro {
         width: 45%;
     }
-    }
+}
+
 .contenedor_herramientas .cotenedor_filtro.consumible {
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -251,12 +258,29 @@
 .contenedor_herramientas .buscar_filtro:hover {
     box-shadow: 1px 0px 10px var(--objetosOscuros);
 }
+.main .buscar_filtro {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: var(--btn-blue);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 0px 2px var(--objetosOscuros);
+    cursor: pointer;
+}
 
+.main .buscar_filtro:hover {
+    box-shadow: 1px 0px 10px var(--objetosOscuros);
+}
 .contenedor_herramientas .contenedor-lista-herramientas,
 .contenedor-herramientas-pedidas {
     display: grid;
     gap: 10px;
     margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .contenedor_herramientas .contenedor-lista-herramientas .herramienta,

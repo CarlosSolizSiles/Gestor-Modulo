@@ -6,7 +6,7 @@ function mostrarModalConsumible(id, imagen, nombre, categoria_nombre, subcategor
             <input type="text" name="id_herramienta" value="${id}" hidden>
             <span id="cerrar-modal" class="cerrar-button"><i class="fa-solid fa-xmark"></i></span>
             <div class="cont-modal-img">
-                <img class="modal-img" src="${imagen || 'ruta_imagen_predeterminada'}" alt="imagen del consumible">
+                <img class="modal-img" src="http://localhost:5000/uploads/${imagen || 'ruta_imagen_predeterminada'}" alt="imagen del consumible">
             </div>
             <h2 class="modal-nombre">${nombre}</h2>
             <div class="modal-datos-herramienta">
@@ -39,6 +39,16 @@ function mostrarModalConsumible(id, imagen, nombre, categoria_nombre, subcategor
         modal.style.display = "none";
     });
 
+    // Restricción para que la cantidad no sea mayor que la cantidad disponible
+    cantidadInput.addEventListener('input', () => {
+        // Si la cantidad seleccionada es mayor que la cantidad disponible, ajustarla al máximo
+        if (parseInt(cantidadInput.value, 10) > cantidad) {
+            cantidadInput.value = cantidad; // Ajustar al máximo disponible
+        }else if (cantidadInput.value < 1) {
+            cantidadInput.value = 1; // Ajustar al máximo disponible
+        }
+    });
+
     botonAñadir.onclick = () => {
         const cantidadSeleccionada = cantidadInput.value;
         const pedido = {
@@ -60,7 +70,7 @@ function mostrarModalConsumible(id, imagen, nombre, categoria_nombre, subcategor
         if (!existePedido) {
             // Realizar la llamada al endpoint para actualizar la cantidad en la base de datos
             const tabla = 'consumibles';
-            fetch('http://127.0.0.1:5000/actualizar_cantidad', {
+            fetch('http://localhost:5500/actualizar_cantidad', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

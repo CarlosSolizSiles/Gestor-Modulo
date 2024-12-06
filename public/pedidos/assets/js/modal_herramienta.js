@@ -7,7 +7,7 @@ function mostrarModal(id, imagen, nombre, categoria_nombre, subcategoria_nombre,
             <input type="text" name="id_herramienta" value="${id}" hidden>
             <span id="cerrar-modal" class="cerrar-button"><i class="fa-solid fa-xmark"></i></span>
             <div class="cont-modal-img">
-                <img class="modal-img" src="${imagen || 'ruta_imagen_predeterminada'}" alt="imagen de la herramienta">
+                <img class="modal-img" src="http://localhost:5000/uploads/${imagen || 'ruta_imagen_predeterminada'}" alt="imagen de la herramienta">
             </div>
             <h2 class="modal-nombre">${nombre}</h2>
             <div class="modal-datos-herramienta">
@@ -41,8 +41,23 @@ function mostrarModal(id, imagen, nombre, categoria_nombre, subcategoria_nombre,
         modal.style.display = "none";
     });
 
+    cantidadInput.addEventListener('input', () => {
+        // Si la cantidad seleccionada es mayor que la cantidad disponible, ajustarla al máximo
+        if (parseInt(cantidadInput.value, 10) > cantidad) {
+            cantidadInput.value = cantidad; // Ajustar al máximo disponible
+        }else  if (cantidadInput.value < 1) {
+            cantidadInput.value = 1; // Ajustar al máximo disponible
+        }
+    });
+
     botonAñadir.onclick = () => {
         const cantidadSeleccionada = cantidadInput.value;
+
+        if (parseInt(cantidadSeleccionada, 10) > cantidad) {
+            // Si la cantidad seleccionada es mayor a la cantidad disponible, ajustamos el valor
+            cantidadInput.value = cantidad;
+        }
+
         const pedido = {
             id: id,
             nombre: nombre,
@@ -62,7 +77,7 @@ function mostrarModal(id, imagen, nombre, categoria_nombre, subcategoria_nombre,
         if (!existePedido) {
             // Realizar la llamada al endpoint para actualizar la cantidad en la base de datos
             const tabla = 'tipos_herramienta';
-            fetch('http://127.0.0.1:5000/actualizar_cantidad', {
+            fetch('http://localhost:5500/actualizar_cantidad', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

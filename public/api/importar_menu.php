@@ -1,13 +1,11 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+require_once __DIR__ . '/../lib/cors.php'; // habilitar CORS al puerto 5173
+
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['archivo_json']) && $_FILES['archivo_json']['error'] == 0) {
         // Verificamos que el archivo sea un JSON
-        $fileType = mime_content_type($_FILES['archivo_json']['tmp_name']);
         $fileExtension = pathinfo($_FILES['archivo_json']['name'], PATHINFO_EXTENSION);
 
         if (strtolower($fileExtension) !== 'json') {
@@ -15,20 +13,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
-        // Definimos la carpeta pública donde se guardará el archivo
-        $directorioDestino = '../public/';
+        // Leemos el contenido del archivo subido
+        $contenidoJSON = file_get_contents($_FILES['archivo_json']['tmp_name']);
+        $datos = json_decode($contenidoJSON, true);
+
+        // Verificamos si el contenido es un arreglo válido
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($datos)) {
+            echo json_encode(["status" => "error", "message" => "El contenido del archivo no es un arreglo JSON válido."]);
+            exit;
+        }
+
+        // Definimos la carpeta y el nombre del archivo PHP
+        $directorioDestino = '../lib/';
         if (!is_dir($directorioDestino)) {
             mkdir($directorioDestino, 0777, true);
         }
 
-        // Guardamos el archivo JSON en la carpeta pública
-        $nombreArchivo = 'menu.json';
-        $rutaDestino = $directorioDestino . $nombreArchivo;
+        $nombreArchivoPHP = 'menu.php';
+        $rutaDestino = $directorioDestino . $nombreArchivoPHP;
 
-        if (move_uploaded_file($_FILES['archivo_json']['tmp_name'], $rutaDestino)) {
-            echo json_encode(["status" => "success", "message" => "El archivo JSON se ha guardado correctamente en la carpeta pública."]);
+        // Convertimos el arreglo a formato JSON y luego generamos el script
+        $contenidoJS = "<script>\nvar menu = " . json_encode($datos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . ";\n</script>";
+
+        // Guardamos el contenido en el archivo PHP
+        if (file_put_contents($rutaDestino, $contenidoJS) !== false) {
+            echo json_encode(["status" => "success", "message" => "El archivo PHP se ha guardado correctamente como 'menu.php'."]);
         } else {
-            echo json_encode(["status" => "error", "message" => "Error al mover el archivo a la carpeta pública."]);
+            echo json_encode(["status" => "error", "message" => "Error al guardar el archivo PHP."]);
         }
     } else {
         echo json_encode(["status" => "error", "message" => "Hubo un error al subir el archivo."]);

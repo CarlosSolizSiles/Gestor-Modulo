@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { obtenerDatosJWT } from '../lib/obtenerDatosJWT';
 
 
-function NavBar() {
+function NavBar({ step }) {
     const location = useLocation()
     const [userAutentic, setUserAutentic] = useState(obtenerDatosJWT());
 
@@ -32,11 +32,12 @@ function NavBar() {
             </ul>
             <ul>
                 {
-                    !userAutentic?.data ? (
-                        <li><Link to="/login">Iniciar Sesión</Link></li>
-                    ) : (
-                        <li><Link to="/" onClick={handleLogout}>Cerrar Sesión ({userAutentic?.data?.rol})</Link></li>
-                    )
+                    step == 0 ? <li><Link to="/install">Iniciar Instalación</Link></li> :
+                        !userAutentic?.data ? (
+                            <li><Link to="/login">Iniciar Sesión</Link></li>
+                        ) : (
+                            <li><Link to="/" onClick={handleLogout}>Cerrar Sesión ({userAutentic?.data?.rol})</Link></li>
+                        )
                 }
             </ul>
         </nav>

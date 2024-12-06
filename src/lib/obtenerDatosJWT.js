@@ -16,4 +16,6 @@ const obtenerDatosJWT = () => {
     return token ? jwtDecode(token) : null;
 };
 
-export { obtenerDatosJWT };
+const isLogin = () => Boolean(obtenerJWT())
+
+export { obtenerDatosJWT, isLogin };

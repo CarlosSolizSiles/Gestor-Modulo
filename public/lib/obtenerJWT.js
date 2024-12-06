@@ -1,3 +1,4 @@
+// Código para solicitar el localStorage desde el iframe
 function requestLocalStorage() {
     return new Promise((resolve) => {
         // Escucha la respuesta del localStorage desde la página principal
@@ -15,3 +16,5 @@ function requestLocalStorage() {
         window.parent.postMessage({ type: "getLocalStorage" }, window.origin);
     });
 }
+
+export { requestLocalStorage }
